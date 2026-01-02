@@ -1,0 +1,13 @@
+{
+  "itemGroup.createfearsound": "Example Mod Tab",
+  "block.createfearsound.example_block": "Example Block",
+  "item.createfearsound.example_item": "Example Item",
+
+  "createfearsound.configuration.title": "Create: Fear, Sound Configs",
+  "createfearsound.configuration.section.createfearsound.common.toml": "Create: Fear, Sound Configs",
+  "createfearsound.configuration.section.createfearsound.common.toml.title": "Create: Fear, Sound Configs",
+  "createfearsound.configuration.items": "Item List",
+  "createfearsound.configuration.logDirtBlock": "Log Dirt Block",
+  "createfearsound.configuration.magicNumberIntroduction": "Magic Number Text",
+  "createfearsound.configuration.magicNumber": "Magic Number"
+}
