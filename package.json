@@ -1,0 +1,9 @@
+{
+  "name": "createfearsound",
+  "private": true,
+  "version": "1.0.0",
+  "devDependencies": {
+    "prettier": "3.7.4",
+    "prettier-plugin-groovy": "0.2.1"
+  }
+}

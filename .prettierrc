@@ -1,0 +1,11 @@
+{
+  "plugins": ["prettier-plugin-groovy"],
+  "overrides": [
+    {
+      "files": "*.gradle",
+      "options": {
+        "parser": "groovy"
+      }
+    }
+  ]
+}
