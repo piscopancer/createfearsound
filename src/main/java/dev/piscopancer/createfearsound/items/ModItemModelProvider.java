@@ -1,6 +1,7 @@
 package dev.piscopancer.createfearsound.items;
 
-import dev.piscopancer.createfearsound.CreateFearSound;
+import dev.piscopancer.createfearsound.CFS;
+import dev.piscopancer.createfearsound.registries.ItemsRegistry;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.neoforge.client.model.generators.ItemModelProvider;
@@ -9,12 +10,12 @@ import net.neoforged.neoforge.common.data.ExistingFileHelper;
 
 public class ModItemModelProvider extends ItemModelProvider {
   public ModItemModelProvider(PackOutput output, ExistingFileHelper existingFileHelper) {
-    super(output, CreateFearSound.MODID, existingFileHelper);
+    super(output, CFS.MODID, existingFileHelper);
   }
 
   @Override
   protected void registerModels() {
-    final var CASSETTE_PATH = CreateFearSound.CASSETTE.getId().getPath();
+    final var CASSETTE_PATH = ItemsRegistry.CASSETTE.getId().getPath();
 
     var cassetteBuilder = getBuilder(CASSETTE_PATH)
         .parent(new ModelFile.UncheckedModelFile(mcLoc("item/generated")))
@@ -25,7 +26,7 @@ public class ModItemModelProvider extends ItemModelProvider {
         .texture("layer0", modLoc("item/" + CASSETTE_PATH))
         .texture("layer1", modLoc("item/" + CASSETTE_PATH + "_red"));
     cassetteBuilder.override()
-        .predicate(ResourceLocation.fromNamespaceAndPath(CreateFearSound.MODID, "color"), 1)
+        .predicate(ResourceLocation.fromNamespaceAndPath(CFS.MODID, "color"), 1)
         .model(new ModelFile.UncheckedModelFile(modLoc("item/" + CASSETTE_PATH + "_red")))
         .end();
 
@@ -34,7 +35,7 @@ public class ModItemModelProvider extends ItemModelProvider {
         .texture("layer0", modLoc("item/" + CASSETTE_PATH))
         .texture("layer1", modLoc("item/" + CASSETTE_PATH + "_green"));
     cassetteBuilder.override()
-        .predicate(ResourceLocation.fromNamespaceAndPath(CreateFearSound.MODID, "color"), 2)
+        .predicate(ResourceLocation.fromNamespaceAndPath(CFS.MODID, "color"), 2)
         .model(new ModelFile.UncheckedModelFile(modLoc("item/" + CASSETTE_PATH + "_green")))
         .end();
   }

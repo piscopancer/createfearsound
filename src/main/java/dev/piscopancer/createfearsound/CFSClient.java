@@ -3,6 +3,8 @@ package dev.piscopancer.createfearsound;
 import javax.annotation.Nullable;
 
 import dev.piscopancer.createfearsound.items.Cassette;
+import dev.piscopancer.createfearsound.registries.ItemsRegistry;
+import dev.piscopancer.createfearsound.registries.ModRegistries;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.resources.ResourceLocation;
@@ -16,12 +18,12 @@ import net.neoforged.neoforge.client.gui.ConfigurationScreen;
 import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
 
 // This class will not load on dedicated servers. Accessing client side code from here is safe.
-@Mod(value = CreateFearSound.MODID, dist = Dist.CLIENT)
+@Mod(value = CFS.MODID, dist = Dist.CLIENT)
 // You can use EventBusSubscriber to automatically register all static methods
 // in the class annotated with @SubscribeEvent
-@EventBusSubscriber(modid = CreateFearSound.MODID, value = Dist.CLIENT)
-public class CreateFearSoundClient {
-  public CreateFearSoundClient(ModContainer container) {
+@EventBusSubscriber(modid = CFS.MODID, value = Dist.CLIENT)
+public class CFSClient {
+  public CFSClient(ModContainer container) {
     // Allows NeoForge to create a config screen for this mod's configs.
     // The config screen is accessed by going to the Mods screen > clicking on your
     // mod > clicking on config.
@@ -37,10 +39,9 @@ public class CreateFearSoundClient {
     // Minecraft.getInstance().getUser().getName());
     event.enqueueWork(() -> {
       ItemProperties.register(
-          CreateFearSound.CASSETTE.get(),
-          ResourceLocation.fromNamespaceAndPath(CreateFearSound.MODID, "color"),
+          ItemsRegistry.CASSETTE.get(),
+          ResourceLocation.fromNamespaceAndPath(CFS.MODID, "color"),
           (stack, level, player, seed) -> {
-            @Nullable
             var color = stack.get(ModDataComponents.COLOR_DATA_COMPONENT.get());
             return color == null ? 0 : switch (color) {
               case None -> 0;

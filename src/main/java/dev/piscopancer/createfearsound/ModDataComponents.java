@@ -12,7 +12,7 @@ import dev.piscopancer.createfearsound.items.Cassette;
 
 public class ModDataComponents {
   public static final DeferredRegister.DataComponents DATA_COMPONENTS = DeferredRegister
-      .createDataComponents(Registries.DATA_COMPONENT_TYPE, CreateFearSound.MODID);
+      .createDataComponents(Registries.DATA_COMPONENT_TYPE, CFS.MODID);
 
   public static final Supplier<DataComponentType<Cassette.Color>> COLOR_DATA_COMPONENT = ModDataComponents.DATA_COMPONENTS
       .registerComponentType(
