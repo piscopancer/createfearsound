@@ -1,20 +1,19 @@
-package dev.piscopancer.createfearsound;
+package dev.piscopancer.createfearsound.registries;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.function.Supplier;
 import com.mojang.serialization.Codec;
+import dev.piscopancer.createfearsound.CFS;
+import dev.piscopancer.createfearsound.items.Cassette;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.codec.StreamCodec;
+import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
-import dev.piscopancer.createfearsound.items.Cassette;
 
-public class ModDataComponents {
-  public static final DeferredRegister.DataComponents DATA_COMPONENTS = DeferredRegister
+public final class DataComponentsRegistry {
+  static final DeferredRegister.DataComponents REGISTRY = DeferredRegister
       .createDataComponents(Registries.DATA_COMPONENT_TYPE, CFS.MODID);
 
-  public static final Supplier<DataComponentType<Cassette.Color>> COLOR_DATA_COMPONENT = ModDataComponents.DATA_COMPONENTS
+  public static final DeferredHolder<DataComponentType<?>, DataComponentType<Cassette.Color>> COLOR_DATA_COMPONENT = REGISTRY
       .registerComponentType(
           "color",
           builder -> builder

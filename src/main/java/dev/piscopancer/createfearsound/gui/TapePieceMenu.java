@@ -9,12 +9,11 @@ import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.items.ItemStackHandler;
 
-public class CassetteMenu extends AbstractContainerMenu {
+public class TapePieceMenu extends AbstractContainerMenu {
   public static final int SLOT_COUNT = 20;
-  // private final ItemStack cassetteStack;
   private final ItemStackHandler inventory = new ItemStackHandler(20); // 20 слотов
 
-  public CassetteMenu(int containerId, Inventory playerInv) {
+  public TapePieceMenu(int containerId, Inventory playerInv) {
     super(MenuTypesRegistry.TAPE_PIECE_MENU.get(), containerId);
     // 1. Создаем временный инвентарь (на 20 слотов)
     SimpleContainer inventory = new SimpleContainer(SLOT_COUNT);

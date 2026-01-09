@@ -8,5 +8,6 @@ public class ModRegistries {
     BlocksRegistry.REGISTRY.register(modEventBus);
     CreativeModTabsRegistry.REGISTRY.register(modEventBus);
     MenuTypesRegistry.REGISTRY.register(modEventBus);
+    DataComponentsRegistry.REGISTRY.register(modEventBus);
   }
 }

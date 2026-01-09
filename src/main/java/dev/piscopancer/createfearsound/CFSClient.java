@@ -1,11 +1,9 @@
 package dev.piscopancer.createfearsound;
 
-import javax.annotation.Nullable;
-
-import dev.piscopancer.createfearsound.items.Cassette;
+import dev.piscopancer.createfearsound.gui.TapePieceScreen;
+import dev.piscopancer.createfearsound.registries.DataComponentsRegistry;
 import dev.piscopancer.createfearsound.registries.ItemsRegistry;
-import dev.piscopancer.createfearsound.registries.ModRegistries;
-import net.minecraft.client.Minecraft;
+import dev.piscopancer.createfearsound.registries.MenuTypesRegistry;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.api.distmarker.Dist;
@@ -14,6 +12,7 @@ import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
+import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.neoforged.neoforge.client.gui.ConfigurationScreen;
 import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
 
@@ -42,7 +41,7 @@ public class CFSClient {
           ItemsRegistry.CASSETTE.get(),
           ResourceLocation.fromNamespaceAndPath(CFS.MODID, "color"),
           (stack, level, player, seed) -> {
-            var color = stack.get(ModDataComponents.COLOR_DATA_COMPONENT.get());
+            var color = stack.get(DataComponentsRegistry.COLOR_DATA_COMPONENT.get());
             return color == null ? 0 : switch (color) {
               case None -> 0;
               case Red -> 1;
@@ -50,5 +49,10 @@ public class CFSClient {
             };
           });
     });
+  }
+
+  @SubscribeEvent
+  public static void registerScreens(RegisterMenuScreensEvent event) {
+    event.register(MenuTypesRegistry.TAPE_PIECE_MENU.get(), TapePieceScreen::new);
   }
 }

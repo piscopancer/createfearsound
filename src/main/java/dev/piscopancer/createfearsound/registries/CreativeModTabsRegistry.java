@@ -9,9 +9,6 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
 public final class CreativeModTabsRegistry {
-  private CreativeModTabsRegistry() {
-  }
-
   static final DeferredRegister<CreativeModeTab> REGISTRY = DeferredRegister
       .create(Registries.CREATIVE_MODE_TAB, CFS.MODID);
   public static final DeferredHolder<CreativeModeTab, CreativeModeTab> MOD_TAB = REGISTRY
