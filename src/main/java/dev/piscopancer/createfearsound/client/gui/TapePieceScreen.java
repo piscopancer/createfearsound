@@ -1,11 +1,13 @@
-package dev.piscopancer.createfearsound.gui;
+package dev.piscopancer.createfearsound.client.gui;
 
+import dev.piscopancer.createfearsound.network.payloads.TapePiecePayload;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
+import net.neoforged.neoforge.network.PacketDistributor;
 
 public class TapePieceScreen extends AbstractContainerScreen<TapePieceMenu> {
   public TapePieceScreen(TapePieceMenu menu, Inventory playerInventory, Component title) {
@@ -32,16 +34,15 @@ public class TapePieceScreen extends AbstractContainerScreen<TapePieceMenu> {
 
     // Кнопка сохранения
     this.addRenderableWidget(Button.builder(Component.literal("Записать"), (btn) -> {
-      // Здесь отправка пакета на сервер с данными из полей
-      // sendDataToServer(titleEdit.getValue(), authorEdit.getValue(),
-      // urlEdit.getValue());
+      PacketDistributor.sendToServer(new TapePiecePayload(
+          titleEdit.getValue(),
+          authorEdit.getValue(),
+          urlEdit.getValue()));
       this.onClose();
     }).bounds(this.width / 2 - 50, 170, 100, 20).build());
   }
 
   @Override
   protected void renderBg(GuiGraphics guiGraphics, float partialTick, int mouseX, int mouseY) {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'renderBg'");
   }
 }

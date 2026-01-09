@@ -1,4 +1,4 @@
-package dev.piscopancer.createfearsound.gui;
+package dev.piscopancer.createfearsound.client.gui;
 
 import dev.piscopancer.createfearsound.Util;
 import net.minecraft.client.gui.GuiGraphics;

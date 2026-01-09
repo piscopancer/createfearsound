@@ -1,6 +1,6 @@
 package dev.piscopancer.createfearsound.items;
 
-import dev.piscopancer.createfearsound.gui.CassetteMenu;
+import dev.piscopancer.createfearsound.client.gui.CassetteMenu;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
@@ -23,9 +23,8 @@ public class Cassette extends Item {
 
   @Override
   public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
-    ItemStack itemstack = player.getItemInHand(hand);
-
-    if (player.isCrouching()) { // Тот самый Shift
+    var itemstack = player.getItemInHand(hand);
+    if (player.isCrouching()) {
       if (!level.isClientSide) {
         player.openMenu(new SimpleMenuProvider(
             (id, inv, p) -> new CassetteMenu(id, inv),
@@ -33,7 +32,6 @@ public class Cassette extends Item {
       }
       return InteractionResultHolder.sidedSuccess(itemstack, level.isClientSide());
     }
-
     return InteractionResultHolder.pass(itemstack);
   }
 

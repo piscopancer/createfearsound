@@ -1,11 +1,10 @@
 package dev.piscopancer.createfearsound.datagen;
 
-import dev.piscopancer.createfearsound.CFS;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
 
-@EventBusSubscriber(modid = CFS.MODID)
+@EventBusSubscriber
 public class Datagen {
   /*
    * Server Side (Рецепты, теги, лут-таблицы).
@@ -20,6 +19,9 @@ public class Datagen {
     generator.addProvider(
         event.includeClient(),
         new CFSItemModelProvider(output, helper));
+
+    generator.addProvider(event.includeClient(), new CFSLangProvider(output, "en_us"));
+    generator.addProvider(event.includeClient(), new CFSLangProvider(output, "ru_ru"));
 
     if (event.includeServer()) {
       generator.addProvider(true, new CFSPressingRecipeProvider(output, event.getLookupProvider()));

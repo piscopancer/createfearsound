@@ -1,14 +1,9 @@
 package dev.piscopancer.createfearsound.datagen;
 
-import com.simibubi.create.content.kinetics.mixer.MixingRecipe;
-import com.simibubi.create.content.processing.recipe.HeatCondition;
-import com.simibubi.create.content.processing.recipe.ProcessingRecipeBuilder;
 import dev.piscopancer.createfearsound.CFS;
 import dev.piscopancer.createfearsound.registries.ItemsRegistry;
-import net.minecraft.core.component.DataComponentPredicate;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.crafting.Ingredient;
 import net.neoforged.neoforge.client.model.generators.ItemModelProvider;
 import net.neoforged.neoforge.client.model.generators.ModelFile;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
@@ -20,6 +15,8 @@ class CFSItemModelProvider extends ItemModelProvider {
 
   @Override
   protected void registerModels() {
+    basicItem(ItemsRegistry.TAPE_PIECE.get());
+
     final var CASSETTE_PATH = ItemsRegistry.CASSETTE.getId().getPath();
 
     var cassetteBuilder = getBuilder(CASSETTE_PATH)
