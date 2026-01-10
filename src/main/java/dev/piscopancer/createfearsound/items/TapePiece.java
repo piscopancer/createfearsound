@@ -1,14 +1,15 @@
 package dev.piscopancer.createfearsound.items;
 
-import dev.piscopancer.createfearsound.client.gui.TapePieceMenu;
+import dev.piscopancer.createfearsound.client.gui.TapePieceScreen;
 import dev.piscopancer.createfearsound.common.data.TapePieceData;
 import dev.piscopancer.createfearsound.registries.DataComponentsRegistry;
+import dev.piscopancer.createfearsound.registries.ItemsRegistry;
 import java.util.List;
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
-import net.minecraft.world.SimpleMenuProvider;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -22,11 +23,9 @@ public class TapePiece extends Item {
 
   @Override
   public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
-    ItemStack stack = player.getItemInHand(hand);
-    if (!level.isClientSide) {
-      player.openMenu(
-          new SimpleMenuProvider((containerId, playerInventory, p) -> new TapePieceMenu(containerId, playerInventory),
-              Component.literal("Tape Piece")));
+    var stack = player.getItemInHand(hand);
+    if (level.isClientSide) {
+      Minecraft.getInstance().setScreen(new TapePieceScreen(stack));
     }
     return InteractionResultHolder.sidedSuccess(stack, level.isClientSide());
   }
@@ -35,8 +34,13 @@ public class TapePiece extends Item {
   public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
     TapePieceData data = stack.get(DataComponentsRegistry.TAPE_PIECE.get());
     if (data != null) {
-      tooltip.add(Component.literal("Название: " + data.title()).withStyle(ChatFormatting.GOLD));
-      tooltip.add(Component.literal("Автор: " + data.author()).withStyle(ChatFormatting.AQUA));
+      tooltip.add(Component.literal("Recorded song").withStyle(ChatFormatting.GOLD));
+      tooltip.add(
+          Component.literal("╔").withStyle(ChatFormatting.DARK_GRAY)
+              .append(Component.literal(data.title()).withStyle(ChatFormatting.WHITE)));
+      tooltip.add(
+          Component.literal("╚").withStyle(ChatFormatting.DARK_GRAY)
+              .append(Component.literal(data.author()).withStyle(ChatFormatting.GRAY)));
     } else {
       tooltip.add(Component.literal("Пустая кассета").withStyle(ChatFormatting.GRAY));
     }

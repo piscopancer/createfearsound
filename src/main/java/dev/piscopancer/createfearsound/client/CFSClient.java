@@ -55,7 +55,6 @@ public class CFSClient {
 
   @SubscribeEvent
   public static void registerScreens(RegisterMenuScreensEvent event) {
-    event.register(MenuTypesRegistry.TAPE_PIECE_MENU.get(), TapePieceScreen::new);
     event.register(MenuTypesRegistry.CASSETTE_MENU.get(), CassetteScreen::new);
   }
 }
