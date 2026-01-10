@@ -1,4 +1,4 @@
-package dev.piscopancer.createfearsound.registries;
+package dev.piscopancer.createfearsound.common.registries;
 
 import dev.piscopancer.createfearsound.CFS;
 import java.util.ArrayList;

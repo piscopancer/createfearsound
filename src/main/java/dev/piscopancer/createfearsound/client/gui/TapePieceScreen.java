@@ -1,7 +1,7 @@
 package dev.piscopancer.createfearsound.client.gui;
 
 import com.mojang.blaze3d.platform.InputConstants;
-import dev.piscopancer.createfearsound.network.payloads.TapePiecePayload;
+import dev.piscopancer.createfearsound.server.payloads.TrackPayload;
 import java.net.URI;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphics;
@@ -31,11 +31,9 @@ public class TapePieceScreen extends Screen {
     titleTextField = new EditBox(font, centerX - 100, 50, 200, 20, Component.literal("Название"));
     addRenderableWidget(titleTextField);
 
-    // Поле для автора
     authorTextField = new EditBox(font, centerX - 100, 90, 200, 20, Component.literal("Автор"));
     addRenderableWidget(authorTextField);
 
-    // Поле для URL
     urlTextField = new EditBox(font, centerX - 100, 130, 200, 20, Component.literal("Ссылка на аудиофайл"));
     urlTextField.setMaxLength(128);
     urlTextField.setResponder(text -> {
@@ -45,12 +43,13 @@ public class TapePieceScreen extends Screen {
     });
     addRenderableWidget(urlTextField);
 
-    // Кнопка сохранения
     saveButton = Button.builder(Component.literal("Сохранить"), (btn) -> {
-      PacketDistributor.sendToServer(new TapePiecePayload(
-          titleTextField.getValue(),
-          authorTextField.getValue(),
-          urlTextField.getValue()));
+      PacketDistributor.sendToServer(TrackPayload.builder()
+          .title(titleTextField.getValue())
+          .author(authorTextField.getValue())
+          .url(urlTextField.getValue())
+          .duration(0)
+          .build());
       onClose();
     }).bounds(centerX - 50, 170, 100, 20).build();
 
@@ -78,11 +77,6 @@ public class TapePieceScreen extends Screen {
       return true;
     }
     return super.keyPressed(keyCode, scanCode, modifiers);
-  }
-
-  @Override
-  public boolean charTyped(char codePoint, int modifiers) {
-    return super.charTyped(codePoint, modifiers);
   }
 
   private boolean isWebUrl(String text) {

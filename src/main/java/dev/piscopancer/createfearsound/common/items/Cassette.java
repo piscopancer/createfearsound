@@ -1,4 +1,4 @@
-package dev.piscopancer.createfearsound.items;
+package dev.piscopancer.createfearsound.common.items;
 
 import dev.piscopancer.createfearsound.client.gui.CassetteMenu;
 import net.minecraft.network.chat.Component;

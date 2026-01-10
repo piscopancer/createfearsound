@@ -1,8 +1,8 @@
-package dev.piscopancer.createfearsound.registries;
+package dev.piscopancer.createfearsound.common.registries;
 
 import dev.piscopancer.createfearsound.CFS;
-import dev.piscopancer.createfearsound.items.Cassette;
-import dev.piscopancer.createfearsound.items.TapePiece;
+import dev.piscopancer.createfearsound.common.items.Cassette;
+import dev.piscopancer.createfearsound.common.items.TapePiece;
 import net.minecraft.world.item.Item;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;

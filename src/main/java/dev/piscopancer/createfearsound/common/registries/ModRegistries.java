@@ -1,4 +1,4 @@
-package dev.piscopancer.createfearsound.registries;
+package dev.piscopancer.createfearsound.common.registries;
 
 import net.neoforged.bus.api.IEventBus;
 
@@ -9,5 +9,6 @@ public class ModRegistries {
     CreativeModTabsRegistry.REGISTRY.register(modEventBus);
     MenuTypesRegistry.REGISTRY.register(modEventBus);
     DataComponentsRegistry.REGISTRY.register(modEventBus);
+    CreateSerializersRegistry.REGISTRY.register(modEventBus);
   }
 }

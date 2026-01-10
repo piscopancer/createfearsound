@@ -1,9 +1,8 @@
-package dev.piscopancer.createfearsound.items;
+package dev.piscopancer.createfearsound.common.items;
 
 import dev.piscopancer.createfearsound.client.gui.TapePieceScreen;
-import dev.piscopancer.createfearsound.common.data.TapePieceData;
-import dev.piscopancer.createfearsound.registries.DataComponentsRegistry;
-import dev.piscopancer.createfearsound.registries.ItemsRegistry;
+import dev.piscopancer.createfearsound.common.data.TrackData;
+import dev.piscopancer.createfearsound.common.registries.DataComponentsRegistry;
 import java.util.List;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
@@ -32,7 +31,7 @@ public class TapePiece extends Item {
 
   @Override
   public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
-    TapePieceData data = stack.get(DataComponentsRegistry.TAPE_PIECE.get());
+    TrackData data = stack.get(DataComponentsRegistry.TAPE_PIECE.get());
     if (data != null) {
       tooltip.add(Component.literal("Recorded song").withStyle(ChatFormatting.GOLD));
       tooltip.add(
@@ -41,8 +40,16 @@ public class TapePiece extends Item {
       tooltip.add(
           Component.literal("╚").withStyle(ChatFormatting.DARK_GRAY)
               .append(Component.literal(data.author()).withStyle(ChatFormatting.GRAY)));
+      tooltip.add(
+          Component.literal(formatDuration(data.duration()) + "").withStyle(ChatFormatting.GRAY));
     } else {
-      tooltip.add(Component.literal("Пустая кассета").withStyle(ChatFormatting.GRAY));
+      tooltip.add(Component.literal("Пусто").withStyle(ChatFormatting.GRAY).withStyle(ChatFormatting.ITALIC));
     }
+  }
+
+  static String formatDuration(int sec) {
+    int m = sec / 60;
+    int s = sec % 60;
+    return String.format("%d:%02d", m, s);
   }
 }

@@ -1,7 +1,7 @@
 package dev.piscopancer.createfearsound.datagen;
 
 import dev.piscopancer.createfearsound.CFS;
-import dev.piscopancer.createfearsound.registries.ItemsRegistry;
+import dev.piscopancer.createfearsound.common.registries.ItemsRegistry;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.neoforge.client.model.generators.ItemModelProvider;

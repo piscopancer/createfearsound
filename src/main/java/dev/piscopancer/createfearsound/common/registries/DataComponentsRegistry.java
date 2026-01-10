@@ -1,9 +1,10 @@
-package dev.piscopancer.createfearsound.registries;
+package dev.piscopancer.createfearsound.common.registries;
 
 import com.mojang.serialization.Codec;
 import dev.piscopancer.createfearsound.CFS;
-import dev.piscopancer.createfearsound.common.data.TapePieceData;
-import dev.piscopancer.createfearsound.items.Cassette;
+import dev.piscopancer.createfearsound.common.data.CassetteData;
+import dev.piscopancer.createfearsound.common.data.TrackData;
+import dev.piscopancer.createfearsound.common.items.Cassette;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.codec.StreamCodec;
@@ -14,10 +15,15 @@ public final class DataComponentsRegistry {
   static final DeferredRegister.DataComponents REGISTRY = DeferredRegister
       .createDataComponents(Registries.DATA_COMPONENT_TYPE, CFS.MODID);
 
-  public static final DeferredHolder<DataComponentType<?>, DataComponentType<TapePieceData>> TAPE_PIECE = REGISTRY
+  public static final DeferredHolder<DataComponentType<?>, DataComponentType<TrackData>> TAPE_PIECE = REGISTRY
       .registerComponentType("tape_piece", b -> b
-          .persistent(TapePieceData.CODEC)
-          .networkSynchronized(TapePieceData.STREAM_CODEC));
+          .persistent(TrackData.CODEC)
+          .networkSynchronized(TrackData.STREAM_CODEC));
+
+  public static final DeferredHolder<DataComponentType<?>, DataComponentType<CassetteData>> CASSETE = REGISTRY
+      .registerComponentType("cassette", b -> b
+          .persistent(CassetteData.CODEC)
+          .networkSynchronized(CassetteData.STREAM_CODEC));
 
   public static final DeferredHolder<DataComponentType<?>, DataComponentType<Cassette.Color>> COLOR_DATA_COMPONENT = REGISTRY
       .registerComponentType(

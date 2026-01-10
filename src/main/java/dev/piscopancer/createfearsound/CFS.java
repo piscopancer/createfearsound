@@ -1,7 +1,7 @@
 package dev.piscopancer.createfearsound;
 
 import com.mojang.logging.LogUtils;
-import dev.piscopancer.createfearsound.registries.ModRegistries;
+import dev.piscopancer.createfearsound.common.registries.ModRegistries;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;

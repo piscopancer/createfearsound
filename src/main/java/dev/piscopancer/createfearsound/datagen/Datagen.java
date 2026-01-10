@@ -21,10 +21,13 @@ public class Datagen {
         new CFSItemModelProvider(output, helper));
 
     generator.addProvider(event.includeClient(), new CFSLangProvider(output, "en_us"));
-    generator.addProvider(event.includeClient(), new CFSLangProvider(output, "ru_ru"));
+    generator.addProvider(event.includeClient(), new CFSLangProvider(output,
+        "ru_ru"));
 
     if (event.includeServer()) {
       generator.addProvider(true, new CFSPressingRecipeProvider(output, event.getLookupProvider()));
+      generator.addProvider(true, new CFSMixingRecipeProvider(output,
+          event.getLookupProvider()));
     }
   }
 }

@@ -1,9 +1,11 @@
 package dev.piscopancer.createfearsound.datagen;
 
 import com.simibubi.create.AllItems;
+import com.simibubi.create.api.data.recipe.MixingRecipeGen;
 import com.simibubi.create.api.data.recipe.PressingRecipeGen;
 import dev.piscopancer.createfearsound.CFS;
-import dev.piscopancer.createfearsound.registries.ItemsRegistry;
+import dev.piscopancer.createfearsound.common.registries.CreateSerializersRegistry;
+import dev.piscopancer.createfearsound.common.registries.ItemsRegistry;
 import java.util.concurrent.CompletableFuture;
 import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.data.PackOutput;
@@ -13,6 +15,7 @@ import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.data.recipes.ShapelessRecipeBuilder;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
 
 final class CFSRecipeProvider extends RecipeProvider {
   public CFSRecipeProvider(PackOutput output, CompletableFuture<Provider> registries) {
@@ -42,4 +45,19 @@ final class CFSPressingRecipeProvider extends PressingRecipeGen {
   GeneratedRecipe
 
   tapePiece = create(() -> Items.KELP, b -> b.output(ItemsRegistry.TAPE_PIECE.get()));
+}
+
+final class CFSMixingRecipeProvider extends MixingRecipeGen {
+  public CFSMixingRecipeProvider(PackOutput output, CompletableFuture<Provider> registries) {
+    super(output, registries, CFS.MODID);
+  }
+
+  GeneratedRecipe
+
+  mixtape = create(() -> Items.PAPER, b -> b
+      .withItemIngredients(
+          Ingredient.of(Items.PAPER),
+          Ingredient.of(ItemsRegistry.CASSETTE.get()))
+      .output(ItemsRegistry.CASSETTE.get())
+      .duration(100));
 }

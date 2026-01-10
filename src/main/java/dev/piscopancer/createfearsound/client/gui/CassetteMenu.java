@@ -1,6 +1,6 @@
 package dev.piscopancer.createfearsound.client.gui;
 
-import dev.piscopancer.createfearsound.registries.MenuTypesRegistry;
+import dev.piscopancer.createfearsound.common.registries.MenuTypesRegistry;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
