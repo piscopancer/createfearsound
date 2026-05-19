@@ -13,10 +13,14 @@ import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
 public final class CreativeModTabsRegistry {
-  static final ArrayList<DeferredItem<Item>> CREATIVE_TAB_ITEMS = new ArrayList<>(
+  static final ArrayList<DeferredItem<? extends Item>> CREATIVE_TAB_ITEMS = new ArrayList<>(
       List.of(
           ItemsRegistry.CASSETTE,
-          ItemsRegistry.TAPE_PIECE));
+          ItemsRegistry.TAPE_PIECE,
+          ItemsRegistry.TAPE_PLAYER,
+          ItemsRegistry.PLAY_BLOCK,
+          ItemsRegistry.PAUSE_BLOCK,
+          ItemsRegistry.VOLUME_BLOCK));
 
   static final DeferredRegister<CreativeModeTab> REGISTRY = DeferredRegister
       .create(Registries.CREATIVE_MODE_TAB, CFS.MODID);

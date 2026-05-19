@@ -1,12 +1,14 @@
 package dev.piscopancer.createfearsound.datagen;
 
 import dev.piscopancer.createfearsound.CFS;
+import dev.piscopancer.createfearsound.common.registries.BlocksRegistry;
 import dev.piscopancer.createfearsound.common.registries.ItemsRegistry;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.neoforge.client.model.generators.ItemModelProvider;
 import net.neoforged.neoforge.client.model.generators.ModelFile;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
+import net.neoforged.neoforge.registries.DeferredBlock;
 
 class CFSItemModelProvider extends ItemModelProvider {
   public CFSItemModelProvider(PackOutput output, ExistingFileHelper existingFileHelper) {
@@ -16,6 +18,11 @@ class CFSItemModelProvider extends ItemModelProvider {
   @Override
   protected void registerModels() {
     basicItem(ItemsRegistry.TAPE_PIECE.get());
+
+    blockItemParent(BlocksRegistry.TAPE_PLAYER);
+    blockItemParent(BlocksRegistry.PLAY_BLOCK);
+    blockItemParent(BlocksRegistry.PAUSE_BLOCK);
+    blockItemParent(BlocksRegistry.VOLUME_BLOCK);
 
     final var CASSETTE_PATH = ItemsRegistry.CASSETTE.getId().getPath();
 
@@ -65,4 +72,8 @@ class CFSItemModelProvider extends ItemModelProvider {
     // .build(output);
   }
 
+  private void blockItemParent(DeferredBlock<?> deferred) {
+    String name = deferred.getId().getPath();
+    withExistingParent(name, modLoc("block/" + name));
+  }
 }

@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(cat /tmp/create-src/com/simibubi/create/content/processing/recipe/ProcessingRecipe.java | head -80)",
+      "Read(//tmp/create-src/com/simibubi/create/content/processing/recipe/**)",
+      "Bash(cat /tmp/create-src/com/simibubi/create/content/kinetics/mixer/MixingRecipe.java)",
+      "Read(//tmp/create-src/com/simibubi/create/content/kinetics/mixer/**)"
+    ]
+  }
+}

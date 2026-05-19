@@ -18,6 +18,10 @@ public class Datagen {
 
     generator.addProvider(
         event.includeClient(),
+        new CFSBlockStateProvider(output, helper));
+
+    generator.addProvider(
+        event.includeClient(),
         new CFSItemModelProvider(output, helper));
 
     generator.addProvider(event.includeClient(), new CFSLangProvider(output, "en_us"));
