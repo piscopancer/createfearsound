@@ -7,6 +7,7 @@ import dev.piscopancer.createfearsound.client.gui.TapePieceScreen;
 import dev.piscopancer.createfearsound.common.registries.DataComponentsRegistry;
 import dev.piscopancer.createfearsound.common.registries.ItemsRegistry;
 import dev.piscopancer.createfearsound.common.registries.MenuTypesRegistry;
+import dev.piscopancer.createfearsound.server.payloads.SetPendingLinkPayload;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.api.distmarker.Dist;
@@ -18,6 +19,7 @@ import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.neoforged.neoforge.client.gui.ConfigurationScreen;
 import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
+import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 
 // This class will not load on dedicated servers. Accessing client side code from here is safe.
 @Mod(value = CFS.MODID, dist = Dist.CLIENT)
@@ -58,5 +60,14 @@ public class CFSClient {
   public static void registerScreens(RegisterMenuScreensEvent event) {
     event.register(MenuTypesRegistry.CASSETTE_MENU.get(), CassetteScreen::new);
     event.register(MenuTypesRegistry.AUDIO_CONTROLLER_MENU.get(), AudioControllerScreen::new);
+  }
+
+  @SubscribeEvent
+  public static void registerPayloads(RegisterPayloadHandlersEvent event) {
+    event.registrar("1").playToClient(
+        SetPendingLinkPayload.TYPE,
+        SetPendingLinkPayload.STREAM_CODEC,
+        (payload, context) -> context.enqueueWork(
+            () -> CFSClientEvents.pendingControllerPos = payload.pos().orElse(null)));
   }
 }

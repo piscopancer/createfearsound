@@ -5,7 +5,6 @@ import dev.piscopancer.createfearsound.CFS;
 import dev.piscopancer.createfearsound.common.data.CassetteData;
 import dev.piscopancer.createfearsound.common.data.TrackData;
 import dev.piscopancer.createfearsound.common.items.Cassette;
-import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.codec.StreamCodec;
@@ -50,8 +49,4 @@ public final class DataComponentsRegistry {
                     }
                   })));
 
-  public static final DeferredHolder<DataComponentType<?>, DataComponentType<BlockPos>> LINKED_AUDIO_CONTROLLER = REGISTRY
-      .registerComponentType("linked_audio_controller", b -> b
-          .persistent(BlockPos.CODEC)
-          .networkSynchronized(BlockPos.STREAM_CODEC));
 }

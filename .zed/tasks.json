@@ -1,0 +1,9 @@
+[
+  {
+    "label": "runClient",
+    "command": "./gradlew",
+    "args": ["runClient"],
+    "allow_concurrent_runs": false,
+    "use_new_terminal": true,
+  },
+]

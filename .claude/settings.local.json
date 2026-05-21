@@ -17,7 +17,8 @@
       "Bash(unzip -l C:/Users/Igor/.gradle/caches/modules-2/files-2.1/com.simibubi.create/create-1.21.1/6.0.9-215/ab56d96a16158ec829f16f3d7d721324f6ed0c40/create-1.21.1-6.0.9-215-sources.jar)",
       "Bash(grep \"\\\\.java$\")",
       "Bash(awk '{print $4}')",
-      "Bash(unzip -p C:/Users/Igor/.gradle/caches/modules-2/files-2.1/com.simibubi.create/create-1.21.1/6.0.9-215/ab56d96a16158ec829f16f3d7d721324f6ed0c40/create-1.21.1-6.0.9-215-sources.jar com/simibubi/create/infrastructure/command/HighlightPacket.java)"
+      "Bash(unzip -p C:/Users/Igor/.gradle/caches/modules-2/files-2.1/com.simibubi.create/create-1.21.1/6.0.9-215/ab56d96a16158ec829f16f3d7d721324f6ed0c40/create-1.21.1-6.0.9-215-sources.jar com/simibubi/create/infrastructure/command/HighlightPacket.java)",
+      "Bash(./gradlew compileJava)"
     ]
   }
 }

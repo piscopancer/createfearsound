@@ -1,9 +1,7 @@
 package dev.piscopancer.createfearsound.client;
 
-import com.simibubi.create.AllSpecialTextures;
 import dev.piscopancer.createfearsound.CFS;
 import dev.piscopancer.createfearsound.common.blocks.AudioPeripheralBlock;
-import dev.piscopancer.createfearsound.common.registries.DataComponentsRegistry;
 import net.createmod.catnip.outliner.Outliner;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
@@ -19,24 +17,29 @@ import net.neoforged.neoforge.client.event.ClientTickEvent;
 @EventBusSubscriber(modid = CFS.MODID, bus = EventBusSubscriber.Bus.GAME, value = Dist.CLIENT)
 public class CFSClientEvents {
 
+  public static BlockPos pendingControllerPos = null;
+
   @SubscribeEvent
   static void onClientTick(ClientTickEvent.Pre event) {
     Minecraft mc = Minecraft.getInstance();
     if (mc.player == null || mc.level == null)
       return;
+    boolean holdingPeripheral = false;
     for (InteractionHand hand : InteractionHand.values()) {
       ItemStack stack = mc.player.getItemInHand(hand);
       if (!(stack.getItem() instanceof BlockItem bi && bi.getBlock() instanceof AudioPeripheralBlock))
         continue;
-      BlockPos controllerPos = stack.get(DataComponentsRegistry.LINKED_AUDIO_CONTROLLER.get());
-      if (controllerPos == null)
-        continue;
+      holdingPeripheral = true;
+      if (pendingControllerPos == null)
+        break;
       Outliner.getInstance()
-          .showAABB("cfs_controller_link_" + hand.name(), new AABB(controllerPos))
+          .showAABB("cfs_controller_link_" + hand.name(), new AABB(pendingControllerPos))
           .colored(0xFFD580)
-          .lineWidth(1 / 16f)
-          .withFaceTexture(AllSpecialTextures.SELECTION);
+          .lineWidth(1 / 16f);
       break;
+    }
+    if (!holdingPeripheral) {
+      pendingControllerPos = null;
     }
   }
 }

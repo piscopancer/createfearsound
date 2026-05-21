@@ -31,6 +31,14 @@ final class CFSLangProvider extends LanguageProvider {
         add("createfearsound.audio_peripheral.unlinked", "Not linked. Right-click an Audio Controller.");
         add("createfearsound.audio_peripheral.linked_to", "Will link to Audio Controller at %s, %s, %s");
         add("createfearsound.audio_peripheral.clicked", "[%s] click at %s, %s, %s");
+        add("createfearsound.audio_controller.status.active", "Active");
+        add("createfearsound.audio_controller.status.missing", "Block missing");
+        add("createfearsound.gui.goggles.audio_volume", "Audio Volume");
+        add("createfearsound.gui.goggles.audio_volume.volume", "Volume:");
+        add("createfearsound.gui.goggles.audio_play", "Audio Play");
+        add("createfearsound.gui.goggles.audio_pause", "Audio Pause");
+        add("createfearsound.gui.goggles.audio_peripheral.connected", "Connected to controller");
+        add("createfearsound.gui.goggles.audio_peripheral.disconnected", "Not connected");
       }
       case "ru_ru" -> {
         add(ItemsRegistry.TAPE_PIECE.get(), "Кусочек плёнки");
@@ -46,6 +54,14 @@ final class CFSLangProvider extends LanguageProvider {
         add("createfearsound.audio_peripheral.unlinked", "Без привязки. Кликни по аудио-контроллеру.");
         add("createfearsound.audio_peripheral.linked_to", "Привяжется к аудио-контроллеру %s, %s, %s");
         add("createfearsound.audio_peripheral.clicked", "[%s] клик %s, %s, %s");
+        add("createfearsound.audio_controller.status.active", "Активен");
+        add("createfearsound.audio_controller.status.missing", "Блок отсутствует");
+        add("createfearsound.gui.goggles.audio_volume", "Блок громкости");
+        add("createfearsound.gui.goggles.audio_volume.volume", "Громкость:");
+        add("createfearsound.gui.goggles.audio_play", "Блок воспроизведения");
+        add("createfearsound.gui.goggles.audio_pause", "Блок паузы");
+        add("createfearsound.gui.goggles.audio_peripheral.connected", "Подключён к контроллеру");
+        add("createfearsound.gui.goggles.audio_peripheral.disconnected", "Не подключён");
       }
     }
   }

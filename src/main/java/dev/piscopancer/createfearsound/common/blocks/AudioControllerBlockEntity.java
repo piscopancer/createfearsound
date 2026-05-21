@@ -40,6 +40,13 @@ public class AudioControllerBlockEntity extends BlockEntity {
     return true;
   }
 
+  public boolean removeLink(BlockPos pos) {
+    boolean removed = this.links.removeIf(l -> l.pos().equals(pos));
+    if (removed)
+      syncLinksChange();
+    return removed;
+  }
+
   private void syncLinksChange() {
     setChanged();
     if (level != null && !level.isClientSide) {
