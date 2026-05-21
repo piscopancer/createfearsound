@@ -19,16 +19,15 @@ class CFSBlockStateProvider extends BlockStateProvider {
 
   @Override
   protected void registerStatesAndModels() {
-    placeholderCube(BlocksRegistry.TAPE_PLAYER);
-    placeholderCube(BlocksRegistry.PLAY_BLOCK);
-    placeholderCube(BlocksRegistry.PAUSE_BLOCK);
-    placeholderCube(BlocksRegistry.VOLUME_BLOCK);
+    placeholderCube(BlocksRegistry.AUDIO_CONTROLLER);
+    placeholderCube(BlocksRegistry.AUDIO_VOLUME);
+    placeholderCube(BlocksRegistry.AUDIO_PLAY);
+    placeholderCube(BlocksRegistry.AUDIO_PAUSE);
   }
 
   private void placeholderCube(DeferredBlock<? extends Block> deferred) {
     String name = deferred.getId().getPath();
-    ModelFile model = models()
-        .cubeAll(name, PLACEHOLDER);
+    ModelFile model = models().cubeAll(name, PLACEHOLDER);
     simpleBlock(deferred.get(), model);
   }
 }

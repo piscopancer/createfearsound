@@ -19,10 +19,10 @@ class CFSItemModelProvider extends ItemModelProvider {
   protected void registerModels() {
     basicItem(ItemsRegistry.TAPE_PIECE.get());
 
-    blockItemParent(BlocksRegistry.TAPE_PLAYER);
-    blockItemParent(BlocksRegistry.PLAY_BLOCK);
-    blockItemParent(BlocksRegistry.PAUSE_BLOCK);
-    blockItemParent(BlocksRegistry.VOLUME_BLOCK);
+    blockItemParent(BlocksRegistry.AUDIO_CONTROLLER);
+    blockItemParent(BlocksRegistry.AUDIO_VOLUME);
+    blockItemParent(BlocksRegistry.AUDIO_PLAY);
+    blockItemParent(BlocksRegistry.AUDIO_PAUSE);
 
     final var CASSETTE_PATH = ItemsRegistry.CASSETTE.getId().getPath();
 

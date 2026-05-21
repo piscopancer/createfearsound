@@ -1,9 +1,9 @@
 package dev.piscopancer.createfearsound.client;
 
 import dev.piscopancer.createfearsound.CFS;
+import dev.piscopancer.createfearsound.client.gui.AudioControllerScreen;
 import dev.piscopancer.createfearsound.client.gui.CassetteScreen;
 import dev.piscopancer.createfearsound.client.gui.TapePieceScreen;
-import dev.piscopancer.createfearsound.client.gui.TapePlayerScreen;
 import dev.piscopancer.createfearsound.common.registries.DataComponentsRegistry;
 import dev.piscopancer.createfearsound.common.registries.ItemsRegistry;
 import dev.piscopancer.createfearsound.common.registries.MenuTypesRegistry;
@@ -57,6 +57,6 @@ public class CFSClient {
   @SubscribeEvent
   public static void registerScreens(RegisterMenuScreensEvent event) {
     event.register(MenuTypesRegistry.CASSETTE_MENU.get(), CassetteScreen::new);
-    event.register(MenuTypesRegistry.TAPE_PLAYER_MENU.get(), TapePlayerScreen::new);
+    event.register(MenuTypesRegistry.AUDIO_CONTROLLER_MENU.get(), AudioControllerScreen::new);
   }
 }

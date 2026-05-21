@@ -1,6 +1,6 @@
 package dev.piscopancer.createfearsound.client.gui;
 
-import dev.piscopancer.createfearsound.common.data.TapePlayerLink;
+import dev.piscopancer.createfearsound.common.data.AudioLink;
 import dev.piscopancer.createfearsound.common.registries.MenuTypesRegistry;
 import java.util.List;
 import net.minecraft.core.BlockPos;
@@ -11,26 +11,26 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 
-public class TapePlayerMenu extends AbstractContainerMenu {
+public class AudioControllerMenu extends AbstractContainerMenu {
   private final BlockPos pos;
-  private final List<TapePlayerLink> links;
+  private final List<AudioLink> links;
 
-  public TapePlayerMenu(int containerId, Inventory inv, BlockPos pos, List<TapePlayerLink> links) {
-    super(MenuTypesRegistry.TAPE_PLAYER_MENU.get(), containerId);
+  public AudioControllerMenu(int containerId, Inventory inv, BlockPos pos, List<AudioLink> links) {
+    super(MenuTypesRegistry.AUDIO_CONTROLLER_MENU.get(), containerId);
     this.pos = pos;
     this.links = List.copyOf(links);
   }
 
-  public TapePlayerMenu(int containerId, Inventory inv, RegistryFriendlyByteBuf buf) {
+  public AudioControllerMenu(int containerId, Inventory inv, RegistryFriendlyByteBuf buf) {
     this(containerId, inv, buf.readBlockPos(),
-        TapePlayerLink.STREAM_CODEC.apply(ByteBufCodecs.list()).decode(buf));
+        AudioLink.STREAM_CODEC.apply(ByteBufCodecs.list()).decode(buf));
   }
 
   public BlockPos getPos() {
     return pos;
   }
 
-  public List<TapePlayerLink> getLinks() {
+  public List<AudioLink> getLinks() {
     return links;
   }
 

@@ -1,9 +1,10 @@
 package dev.piscopancer.createfearsound.common.registries;
 
 import dev.piscopancer.createfearsound.CFS;
-import dev.piscopancer.createfearsound.common.blocks.ControlBlock;
-import dev.piscopancer.createfearsound.common.blocks.TapePlayerBlock;
-import dev.piscopancer.createfearsound.common.data.TapePlayerLink;
+import dev.piscopancer.createfearsound.common.blocks.AudioControllerBlock;
+import dev.piscopancer.createfearsound.common.blocks.AudioPauseBlock;
+import dev.piscopancer.createfearsound.common.blocks.AudioPlayBlock;
+import dev.piscopancer.createfearsound.common.blocks.AudioVolumeBlock;
 import java.util.List;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
@@ -15,38 +16,38 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 public final class BlocksRegistry {
   static final DeferredRegister.Blocks REGISTRY = DeferredRegister.createBlocks(CFS.MODID);
 
-  public static final DeferredBlock<TapePlayerBlock> TAPE_PLAYER = REGISTRY.registerBlock(
-      "tape_player",
-      TapePlayerBlock::new,
+  public static final DeferredBlock<AudioControllerBlock> AUDIO_CONTROLLER = REGISTRY.registerBlock(
+      "audio_controller",
+      AudioControllerBlock::new,
       BlockBehaviour.Properties.of()
           .mapColor(MapColor.METAL)
           .strength(2.0F)
           .sound(SoundType.METAL));
 
-  public static final DeferredBlock<ControlBlock> PLAY_BLOCK = REGISTRY.registerBlock(
-      "play_block",
-      props -> new ControlBlock(props, TapePlayerLink.LinkType.Play),
+  public static final DeferredBlock<AudioVolumeBlock> AUDIO_VOLUME = REGISTRY.registerBlock(
+      "audio_volume",
+      AudioVolumeBlock::new,
       BlockBehaviour.Properties.of()
           .mapColor(MapColor.METAL)
           .strength(1.5F)
           .sound(SoundType.METAL));
 
-  public static final DeferredBlock<ControlBlock> PAUSE_BLOCK = REGISTRY.registerBlock(
-      "pause_block",
-      props -> new ControlBlock(props, TapePlayerLink.LinkType.Pause),
+  public static final DeferredBlock<AudioPlayBlock> AUDIO_PLAY = REGISTRY.registerBlock(
+      "audio_play",
+      AudioPlayBlock::new,
       BlockBehaviour.Properties.of()
           .mapColor(MapColor.METAL)
           .strength(1.5F)
           .sound(SoundType.METAL));
 
-  public static final DeferredBlock<ControlBlock> VOLUME_BLOCK = REGISTRY.registerBlock(
-      "volume_block",
-      props -> new ControlBlock(props, TapePlayerLink.LinkType.Volume),
+  public static final DeferredBlock<AudioPauseBlock> AUDIO_PAUSE = REGISTRY.registerBlock(
+      "audio_pause",
+      AudioPauseBlock::new,
       BlockBehaviour.Properties.of()
           .mapColor(MapColor.METAL)
           .strength(1.5F)
           .sound(SoundType.METAL));
 
   public static final List<DeferredBlock<? extends Block>> ALL = List.of(
-      TAPE_PLAYER, PLAY_BLOCK, PAUSE_BLOCK, VOLUME_BLOCK);
+      AUDIO_CONTROLLER, AUDIO_VOLUME, AUDIO_PLAY, AUDIO_PAUSE);
 }

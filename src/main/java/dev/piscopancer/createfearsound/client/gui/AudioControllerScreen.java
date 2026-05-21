@@ -1,19 +1,19 @@
 package dev.piscopancer.createfearsound.client.gui;
 
-import dev.piscopancer.createfearsound.common.data.TapePlayerLink;
+import dev.piscopancer.createfearsound.common.data.AudioLink;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
 
-public class TapePlayerScreen extends AbstractContainerScreen<TapePlayerMenu> {
+public class AudioControllerScreen extends AbstractContainerScreen<AudioControllerMenu> {
   private static final int BG_WIDTH = 220;
   private static final int BG_HEIGHT = 180;
   private static final int LINE_HEIGHT = 12;
   private static final int LIST_TOP = 28;
 
-  public TapePlayerScreen(TapePlayerMenu menu, Inventory playerInventory, Component title) {
+  public AudioControllerScreen(AudioControllerMenu menu, Inventory playerInventory, Component title) {
     super(menu, playerInventory, title);
     this.imageWidth = BG_WIDTH;
     this.imageHeight = BG_HEIGHT;
@@ -43,19 +43,19 @@ public class TapePlayerScreen extends AbstractContainerScreen<TapePlayerMenu> {
     var links = this.menu.getLinks();
     if (links.isEmpty()) {
       g.drawString(this.font,
-          Component.translatable("createfearsound.tape_player.no_links")
+          Component.translatable("createfearsound.audio_controller.no_links")
               .withStyle(ChatFormatting.DARK_GRAY, ChatFormatting.ITALIC),
           8, LIST_TOP, 0xFFFFFF, false);
       return;
     }
 
     g.drawString(this.font,
-        Component.translatable("createfearsound.tape_player.links_header", links.size())
+        Component.translatable("createfearsound.audio_controller.links_header", links.size())
             .withStyle(ChatFormatting.GOLD),
         8, LIST_TOP - 12, 0xFFFFFF, false);
 
     int y = LIST_TOP;
-    for (TapePlayerLink link : links) {
+    for (AudioLink link : links) {
       var line = Component.literal(link.type().name())
           .withStyle(ChatFormatting.AQUA)
           .append(Component.literal("  "))

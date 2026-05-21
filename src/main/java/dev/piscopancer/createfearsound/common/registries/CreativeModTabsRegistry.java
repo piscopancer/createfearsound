@@ -17,10 +17,10 @@ public final class CreativeModTabsRegistry {
       List.of(
           ItemsRegistry.CASSETTE,
           ItemsRegistry.TAPE_PIECE,
-          ItemsRegistry.TAPE_PLAYER,
-          ItemsRegistry.PLAY_BLOCK,
-          ItemsRegistry.PAUSE_BLOCK,
-          ItemsRegistry.VOLUME_BLOCK));
+          ItemsRegistry.AUDIO_CONTROLLER,
+          ItemsRegistry.AUDIO_VOLUME,
+          ItemsRegistry.AUDIO_PLAY,
+          ItemsRegistry.AUDIO_PAUSE));
 
   static final DeferredRegister<CreativeModeTab> REGISTRY = DeferredRegister
       .create(Registries.CREATIVE_MODE_TAB, CFS.MODID);

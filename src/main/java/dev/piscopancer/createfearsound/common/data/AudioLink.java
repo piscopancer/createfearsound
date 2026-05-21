@@ -7,17 +7,17 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 
-public record TapePlayerLink(BlockPos pos, LinkType type) {
+public record AudioLink(BlockPos pos, LinkType type) {
   public enum LinkType {
+    Volume,
     Play,
-    Pause,
-    Volume;
+    Pause;
 
     public static final Codec<LinkType> CODEC = Codec.STRING.xmap(s -> {
       try {
         return LinkType.valueOf(s);
       } catch (IllegalArgumentException e) {
-        return LinkType.Play;
+        return LinkType.Volume;
       }
     }, LinkType::name);
 
@@ -26,21 +26,21 @@ public record TapePlayerLink(BlockPos pos, LinkType type) {
           try {
             return LinkType.valueOf(s);
           } catch (IllegalArgumentException e) {
-            return LinkType.Play;
+            return LinkType.Volume;
           }
         },
         LinkType::name);
   }
 
-  public static final Codec<TapePlayerLink> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-      BlockPos.CODEC.fieldOf("pos").forGetter(TapePlayerLink::pos),
-      LinkType.CODEC.fieldOf("type").forGetter(TapePlayerLink::type))
-      .apply(instance, TapePlayerLink::new));
+  public static final Codec<AudioLink> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+      BlockPos.CODEC.fieldOf("pos").forGetter(AudioLink::pos),
+      LinkType.CODEC.fieldOf("type").forGetter(AudioLink::type))
+      .apply(instance, AudioLink::new));
 
-  public static final StreamCodec<ByteBuf, TapePlayerLink> STREAM_CODEC = StreamCodec.composite(
+  public static final StreamCodec<ByteBuf, AudioLink> STREAM_CODEC = StreamCodec.composite(
       BlockPos.STREAM_CODEC,
-      TapePlayerLink::pos,
+      AudioLink::pos,
       LinkType.STREAM_CODEC,
-      TapePlayerLink::type,
-      TapePlayerLink::new);
+      AudioLink::type,
+      AudioLink::new);
 }

@@ -20,26 +20,32 @@ final class CFSLangProvider extends LanguageProvider {
       case "en_us" -> {
         add(ItemsRegistry.TAPE_PIECE.get(), "Tape piece");
         add(ItemsRegistry.CASSETTE.get(), "Cassette");
-        add(BlocksRegistry.TAPE_PLAYER.get(), "Tape Player");
-        add(BlocksRegistry.PLAY_BLOCK.get(), "Play Control");
-        add(BlocksRegistry.PAUSE_BLOCK.get(), "Pause Control");
-        add(BlocksRegistry.VOLUME_BLOCK.get(), "Volume Control");
-        add("createfearsound.tape_player.no_links", "No controls linked");
-        add("createfearsound.tape_player.links_header", "Linked controls (%s):");
-        add("createfearsound.tape_player.linked", "Linked %s at %s, %s, %s");
-        add("createfearsound.tape_player.unlinked", "Unlinked %s at %s, %s, %s");
+        add(BlocksRegistry.AUDIO_CONTROLLER.get(), "Audio Controller");
+        add(BlocksRegistry.AUDIO_VOLUME.get(), "Audio Volume");
+        add(BlocksRegistry.AUDIO_PLAY.get(), "Audio Play");
+        add(BlocksRegistry.AUDIO_PAUSE.get(), "Audio Pause");
+        add("createfearsound.audio_controller.no_links", "No peripherals linked");
+        add("createfearsound.audio_controller.links_header", "Linked peripherals (%s):");
+        add("createfearsound.audio_controller.captured", "Audio Controller at %s, %s, %s selected");
+        add("createfearsound.audio_controller.attached", "%s linked to Audio Controller at %s, %s, %s");
+        add("createfearsound.audio_peripheral.unlinked", "Not linked. Right-click an Audio Controller.");
+        add("createfearsound.audio_peripheral.linked_to", "Will link to Audio Controller at %s, %s, %s");
+        add("createfearsound.audio_peripheral.clicked", "[%s] click at %s, %s, %s");
       }
       case "ru_ru" -> {
         add(ItemsRegistry.TAPE_PIECE.get(), "Кусочек плёнки");
         add(ItemsRegistry.CASSETTE.get(), "Кассета");
-        add(BlocksRegistry.TAPE_PLAYER.get(), "Проигрыватель");
-        add(BlocksRegistry.PLAY_BLOCK.get(), "Блок воспроизведения");
-        add(BlocksRegistry.PAUSE_BLOCK.get(), "Блок паузы");
-        add(BlocksRegistry.VOLUME_BLOCK.get(), "Блок громкости");
-        add("createfearsound.tape_player.no_links", "Привязок нет");
-        add("createfearsound.tape_player.links_header", "Привязанные блоки (%s):");
-        add("createfearsound.tape_player.linked", "Привязан %s по координатам %s, %s, %s");
-        add("createfearsound.tape_player.unlinked", "Отвязан %s по координатам %s, %s, %s");
+        add(BlocksRegistry.AUDIO_CONTROLLER.get(), "Аудио-контроллер");
+        add(BlocksRegistry.AUDIO_VOLUME.get(), "Блок громкости");
+        add(BlocksRegistry.AUDIO_PLAY.get(), "Блок воспроизведения");
+        add(BlocksRegistry.AUDIO_PAUSE.get(), "Блок паузы");
+        add("createfearsound.audio_controller.no_links", "Периферии нет");
+        add("createfearsound.audio_controller.links_header", "Привязанная периферия (%s):");
+        add("createfearsound.audio_controller.captured", "Аудио-контроллер %s, %s, %s выбран");
+        add("createfearsound.audio_controller.attached", "%s привязан к аудио-контроллеру %s, %s, %s");
+        add("createfearsound.audio_peripheral.unlinked", "Без привязки. Кликни по аудио-контроллеру.");
+        add("createfearsound.audio_peripheral.linked_to", "Привяжется к аудио-контроллеру %s, %s, %s");
+        add("createfearsound.audio_peripheral.clicked", "[%s] клик %s, %s, %s");
       }
     }
   }

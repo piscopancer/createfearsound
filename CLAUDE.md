@@ -2,6 +2,30 @@
 
 Аддон для мода **Create** (Minecraft 1.21.1, NeoForge 21.1.217), цель — проигрывать пользовательскую музыку через механизмы Create. Идея: записать аудио на «кусочек плёнки» (`TapePiece`), скомпоновать треки в «кассету» (`Cassette`), а блок-проигрыватель (`TapePlayer`) воспроизводит её.
 
+## 0. Правила разработки (важно)
+
+Мод должен **выглядеть и ощущаться как Create**. Это не косметика — это базовое требование к любому новому контенту.
+
+**UX-каноны Create, которые надо повторять:**
+
+- **Цветные обводки на блоках при наведении/выделении** — рендерятся линиями. Не белая ванильная рамка, а свой outline-рендер с цветом, как у Schematicannon, Mechanical Arm, Smart Pipes и пр.
+- **Очки инженера (Engineer's Goggles)** показывают доп. инфо о блоках аддона прямо в HUD — статус, скорость, привязки, текущий трек. Любой блок с состоянием обязан иметь goggle-оверлей.
+- **Минимум интерфейсов.** GUI открывается ТОЛЬКО для чего-то маленького и точечного (одно поле, пара кнопок). Списки, статусы, диагностика — через goggles-overlay, tooltip, ponder-сцену, не через AbstractContainerScreen.
+- **Цельный визуальный язык:** металлические текстуры, латунь/андезит, шрифт и иконки Create.
+
+**Как создавать контент:**
+
+1. **Сначала ищи готовое в Create**, а не пиши своё. Перед написанием класса обязательно проверить:
+   - Распакованный jar Create в gradle-кэше (`~/.gradle/caches/modules-2/files-2.1/com.simibubi.create/`)
+   - Подключённые исходники Create / Ponder / Flywheel / Registrate (IDE: Go to → Class, ищи аналог)
+   - Базовые классы Create: `KineticBlock`, `KineticBlockEntity`, `SmartBlockEntity`, `BlockEntityBehaviour`, `IInteractionChecker`, `AbstractContraptionEntity`, `Outliner`, `ValueBoxRenderer`, `GoggleInformationProvider`, `IHaveGoggleInformation`, `BlockStressValues`, `AllShapes`, `AllInteractionBehaviours`, ProcessingRecipe*, AllPartialModels и т.д.
+   - Веб-поиск: «Create addon X», «IHaveGoggleInformation example», «Create outline rendering custom block» — смотри как делают живые аддоны на GitHub и форумах.
+2. **Наследуй классы Create**, не дублируй их. Кастомный блок с движением — `KineticBlock`/`HorizontalKineticBlock`. Кастомный BE — `KineticBlockEntity`/`SmartBlockEntity`. Доп. поведение — `BlockEntityBehaviour`, а не свой костыль. Outline — через Create `Outliner`. Goggle-инфо — реализуй `IHaveGoggleInformation`/`IHaveHoveringInformation` на BE.
+3. **Своих абстракций не плодить.** Если в Create есть схожий механизм — переиспользуй его API. Свой код только когда в Create реально такого нет, и даже тогда — по образцу Create-классов.
+4. **Перед тем как закоммитить новую механику**: показать ссылку/путь к Create-классу или аддону-референсу, на котором она основана.
+
+Если рискуешь нарушить эти правила — спрашивай у пользователя ДО реализации.
+
 ## 1. Стек и сборка
 
 - **build.gradle**: NeoForge ModDev 2.0.137, Java 21, Parchment-маппинги.
@@ -143,3 +167,46 @@ dev.piscopancer.createfearsound
 - В `CFSRecipeProvider` файл содержит ТРИ package-private класса в одном `.java` (`CFSRecipeProvider`, `CFSPressingRecipeProvider`, `CFSMixingRecipeProvider`) — компилируется, но непривычно; имя файла соответствует только первому.
 - `CassetteMixingRecipe.assemble` не учитывает случай, когда нет кассеты во входе — `result.set(...)` запишет пустые tracks. Зависит от `matches`, который проверяет только `paper + custom name`, не требуя кассеты.
 - `Cassette.Color` enum не использует ConstantNamingConvention (`None`/`Red`/`Green` вместо `NONE`/`RED`/`GREEN`); работает, но нарушает соглашение Java.
+
+## 7. Структура исходников Create (JAR)
+
+JAR с исходниками лежит в gradle-кеше:
+- **Create sources**: `~/.gradle/caches/modules-2/files-2.1/com.simibubi.create/create-1.21.1/6.0.9-215/…/create-1.21.1-6.0.9-215-sources.jar`
+- **Ponder/Catnip sources**: `~/.gradle/caches/modules-2/files-2.1/net.createmod.ponder/ponder-neoforge/1.0.81+mc1.21.1/…/ponder-neoforge-1.0.81+mc1.21.1-sources.jar`
+
+Для чтения файла из JAR: `unzip -p <путь>.jar <путь/к/файлу>.java` (через Bash).
+
+### Пакеты Create (`com.simibubi.create`)
+
+| Пакет | Что там |
+|-------|---------|
+| `com.simibubi.create` | `AllBlocks`, `AllItems`, `AllBlockEntityTypes`, `AllMenuTypes`, `AllShapes`, `AllSpecialTextures`, `AllSoundEvents`, `AllPartialModels`, `AllTags` — все реестры |
+| `com.simibubi.create.api.equipment.goggles` | `IHaveGoggleInformation`, `IHaveHoveringInformation`, `IHaveCustomOverlayIcon`, `IProxyHoveringInformation` |
+| `com.simibubi.create.api.stress` | API стресса (нагрузка/генерация) |
+| `com.simibubi.create.content.kinetics.base` | `KineticBlock`, `KineticBlockEntity`, `HorizontalKineticBlock`, `DirectionalKineticBlock`, `GeneratingKineticBlockEntity` |
+| `com.simibubi.create.foundation.blockEntity` | `SmartBlockEntity`, `SyncedBlockEntity`, `IBE` (интерфейс для блоков с BE) |
+| `com.simibubi.create.foundation.blockEntity.behaviour` | `BlockEntityBehaviour`, `ValueBox`, `ValueBoxRenderer`, `ValueBoxTransform`, `ScrollValueBehaviour`, `FilteringBehaviour`, `SmartFluidTankBehaviour` |
+| `com.simibubi.create.foundation.block` | `IHaveBigOutline`, `BigOutlines`, `IBE`, `WrenchableDirectionalBlock` |
+| `com.simibubi.create.foundation.block.render` | Кастомные модели блоков |
+| `com.simibubi.create.foundation.gui` | `AllGuiTextures`, `AllIcons`, `AbstractSimiContainerScreen`, `MenuBase` |
+| `com.simibubi.create.foundation.gui.widget` | `IconButton`, `ScrollInput`, `Label`, `Indicator` |
+| `com.simibubi.create.foundation.utility` | `CreateLang`, `RaycastHelper`, `IInteractionChecker` |
+| `com.simibubi.create.foundation.placement` | `PoleHelper` |
+| `com.simibubi.create.content.redstone.link` | `LinkBehaviour`, `LinkRenderer`, `IRedstoneLinkable` — паттерн «привязка блоков» |
+| `com.simibubi.create.content.processing.recipe` | `ProcessingRecipe`, `ProcessingRecipeBuilder` — базовые рецепты |
+| `com.simibubi.create.compat.jei` | Категории JEI, паттерн регистрации |
+
+### Ключевые классы Catnip/Ponder (`net.createmod.catnip`)
+
+| Класс | Что делает |
+|-------|-----------|
+| `net.createmod.catnip.outliner.Outliner` | Singleton. `getInstance().showAABB(slot, aabb).colored(0xRRGGBB).lineWidth(1/16f).withFaceTexture(AllSpecialTextures.SELECTION)` — цветная обводка блока. TTL по умолчанию = 1 тик, надо вызывать каждый тик. |
+| `net.createmod.catnip.outliner.Outline.OutlineParams` | Построитель параметров: `.colored(int)`, `.lineWidth(float)`, `.withFaceTexture(BindableTexture)`, `.lightmap(int)` |
+| `net.createmod.catnip.render.BindableTexture` | Интерфейс текстур для outline (реализует `AllSpecialTextures`) |
+
+### Паттерны, которые стоит повторять
+
+- **Highlight при удержании предмета** → `@EventBusSubscriber(bus = Bus.GAME)` + `ClientTickEvent.Pre` + `Outliner.getInstance().showAABB(...)` — см. `LinkRenderer.tick()` и `CFSClientEvents.java`
+- **Goggle-оверлей** → `SmartBlockEntity implements IHaveGoggleInformation`, метод `addToGoggleTooltip(List<Component>, boolean)`
+- **Поведение блока** → наследовать `BlockEntityBehaviour`, добавить в `SmartBlockEntity.addBehaviours(List)`
+- **Подсветка блока по команде** → `HighlightPacket` (Create infra) использует `showAABB` с TTL 200

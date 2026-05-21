@@ -3,13 +3,11 @@ package dev.piscopancer.createfearsound.common.registries;
 import com.mojang.serialization.Codec;
 import dev.piscopancer.createfearsound.CFS;
 import dev.piscopancer.createfearsound.common.data.CassetteData;
-import dev.piscopancer.createfearsound.common.data.TapePlayerLink;
 import dev.piscopancer.createfearsound.common.data.TrackData;
 import dev.piscopancer.createfearsound.common.items.Cassette;
-import java.util.List;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -52,8 +50,8 @@ public final class DataComponentsRegistry {
                     }
                   })));
 
-  public static final DeferredHolder<DataComponentType<?>, DataComponentType<List<TapePlayerLink>>> TAPE_PLAYER_LINKS = REGISTRY
-      .registerComponentType("tape_player_links", b -> b
-          .persistent(TapePlayerLink.CODEC.listOf())
-          .networkSynchronized(TapePlayerLink.STREAM_CODEC.apply(ByteBufCodecs.list())));
+  public static final DeferredHolder<DataComponentType<?>, DataComponentType<BlockPos>> LINKED_AUDIO_CONTROLLER = REGISTRY
+      .registerComponentType("linked_audio_controller", b -> b
+          .persistent(BlockPos.CODEC)
+          .networkSynchronized(BlockPos.STREAM_CODEC));
 }

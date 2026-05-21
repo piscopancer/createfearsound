@@ -1,7 +1,7 @@
 package dev.piscopancer.createfearsound.common.blocks;
 
 import com.mojang.serialization.Codec;
-import dev.piscopancer.createfearsound.common.data.TapePlayerLink;
+import dev.piscopancer.createfearsound.common.data.AudioLink;
 import dev.piscopancer.createfearsound.common.registries.BlockEntityTypesRegistry;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -18,22 +18,29 @@ import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
-public class TapePlayerBlockEntity extends BlockEntity {
+public class AudioControllerBlockEntity extends BlockEntity {
   private static final String LINKS_KEY = "links";
-  private static final Codec<List<TapePlayerLink>> LINKS_CODEC = TapePlayerLink.CODEC.listOf();
+  private static final Codec<List<AudioLink>> LINKS_CODEC = AudioLink.CODEC.listOf();
 
-  private List<TapePlayerLink> links = new ArrayList<>();
+  private List<AudioLink> links = new ArrayList<>();
 
-  public TapePlayerBlockEntity(BlockPos pos, BlockState blockState) {
-    super(BlockEntityTypesRegistry.TAPE_PLAYER.get(), pos, blockState);
+  public AudioControllerBlockEntity(BlockPos pos, BlockState blockState) {
+    super(BlockEntityTypesRegistry.AUDIO_CONTROLLER.get(), pos, blockState);
   }
 
-  public List<TapePlayerLink> getLinks() {
+  public List<AudioLink> getLinks() {
     return Collections.unmodifiableList(links);
   }
 
-  public void setLinks(List<TapePlayerLink> newLinks) {
-    this.links = new ArrayList<>(newLinks);
+  public boolean addLink(AudioLink link) {
+    if (this.links.stream().anyMatch(l -> l.pos().equals(link.pos())))
+      return false;
+    this.links.add(link);
+    syncLinksChange();
+    return true;
+  }
+
+  private void syncLinksChange() {
     setChanged();
     if (level != null && !level.isClientSide) {
       level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), 3);
