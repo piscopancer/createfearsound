@@ -4,6 +4,7 @@ import dev.piscopancer.createfearsound.CFS;
 import dev.piscopancer.createfearsound.common.blocks.AudioControllerBlockEntity;
 import dev.piscopancer.createfearsound.common.blocks.AudioPauseBlockEntity;
 import dev.piscopancer.createfearsound.common.blocks.AudioPlayBlockEntity;
+import dev.piscopancer.createfearsound.common.blocks.AudioSpeakerBlockEntity;
 import dev.piscopancer.createfearsound.common.blocks.AudioVolumeBlockEntity;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -32,5 +33,10 @@ public final class BlockEntityTypesRegistry {
   public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<AudioPauseBlockEntity>> AUDIO_PAUSE = REGISTRY
       .register("audio_pause", () -> BlockEntityType.Builder
           .of(AudioPauseBlockEntity::new, BlocksRegistry.AUDIO_PAUSE.get())
+          .build(null));
+
+  public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<AudioSpeakerBlockEntity>> AUDIO_SPEAKER = REGISTRY
+      .register("audio_speaker", () -> BlockEntityType.Builder
+          .of(AudioSpeakerBlockEntity::new, BlocksRegistry.AUDIO_SPEAKER.get())
           .build(null));
 }

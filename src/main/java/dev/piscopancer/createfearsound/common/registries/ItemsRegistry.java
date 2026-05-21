@@ -29,4 +29,8 @@ public final class ItemsRegistry {
   public static final DeferredItem<AudioPeripheralItem> AUDIO_PAUSE = REGISTRY.registerItem(
       "audio_pause",
       props -> new AudioPeripheralItem(BlocksRegistry.AUDIO_PAUSE.get(), props));
+
+  public static final DeferredItem<AudioPeripheralItem> AUDIO_SPEAKER = REGISTRY.registerItem(
+      "audio_speaker",
+      props -> new AudioPeripheralItem(BlocksRegistry.AUDIO_SPEAKER.get(), props));
 }

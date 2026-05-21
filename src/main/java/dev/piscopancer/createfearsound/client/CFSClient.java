@@ -7,7 +7,12 @@ import dev.piscopancer.createfearsound.client.gui.TapePieceScreen;
 import dev.piscopancer.createfearsound.common.registries.DataComponentsRegistry;
 import dev.piscopancer.createfearsound.common.registries.ItemsRegistry;
 import dev.piscopancer.createfearsound.common.registries.MenuTypesRegistry;
+import dev.piscopancer.createfearsound.client.audio.ClientAudioReceiver;
+import dev.piscopancer.createfearsound.server.payloads.AudioChunkPayload;
+import dev.piscopancer.createfearsound.server.payloads.AudioPlayStartPayload;
 import dev.piscopancer.createfearsound.server.payloads.SetPendingLinkPayload;
+import dev.piscopancer.createfearsound.server.payloads.StopAudioPayload;
+import dev.piscopancer.createfearsound.server.payloads.TapeFindResultPayload;
 import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.api.distmarker.Dist;
@@ -64,10 +69,22 @@ public class CFSClient {
 
   @SubscribeEvent
   public static void registerPayloads(RegisterPayloadHandlersEvent event) {
-    event.registrar("1").playToClient(
-        SetPendingLinkPayload.TYPE,
-        SetPendingLinkPayload.STREAM_CODEC,
+    var r = event.registrar("1");
+    r.playToClient(SetPendingLinkPayload.TYPE, SetPendingLinkPayload.STREAM_CODEC,
         (payload, context) -> context.enqueueWork(
             () -> CFSClientEvents.pendingControllerPos = payload.pos().orElse(null)));
+    r.playToClient(AudioPlayStartPayload.TYPE, AudioPlayStartPayload.STREAM_CODEC,
+        (payload, context) -> context.enqueueWork(
+            () -> ClientAudioReceiver.onPlayStart(payload.trackId(), payload.name(), payload.totalChunks())));
+    r.playToClient(AudioChunkPayload.TYPE, AudioChunkPayload.STREAM_CODEC,
+        (payload, context) -> context.enqueueWork(
+            () -> ClientAudioReceiver.onChunk(payload.trackId(), payload.chunkIndex(), payload.data())));
+    r.playToClient(StopAudioPayload.TYPE, StopAudioPayload.STREAM_CODEC,
+        (payload, context) -> context.enqueueWork(ClientAudioReceiver::stop));
+    r.playToClient(TapeFindResultPayload.TYPE, TapeFindResultPayload.STREAM_CODEC,
+        (payload, context) -> context.enqueueWork(() -> {
+          var mc = net.minecraft.client.Minecraft.getInstance();
+          if (mc.screen instanceof TapePieceScreen s) s.onFindResult(payload);
+        }));
   }
 }

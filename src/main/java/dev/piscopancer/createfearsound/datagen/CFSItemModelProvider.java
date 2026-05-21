@@ -23,6 +23,7 @@ class CFSItemModelProvider extends ItemModelProvider {
     blockItemParent(BlocksRegistry.AUDIO_VOLUME);
     blockItemParent(BlocksRegistry.AUDIO_PLAY);
     blockItemParent(BlocksRegistry.AUDIO_PAUSE);
+    blockItemParent(BlocksRegistry.AUDIO_SPEAKER);
 
     final var CASSETTE_PATH = ItemsRegistry.CASSETTE.getId().getPath();
 

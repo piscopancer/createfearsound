@@ -23,6 +23,7 @@ public class AudioControllerBlockEntity extends BlockEntity {
   private static final Codec<List<AudioLink>> LINKS_CODEC = AudioLink.CODEC.listOf();
 
   private List<AudioLink> links = new ArrayList<>();
+  private int volume = 0;
 
   public AudioControllerBlockEntity(BlockPos pos, BlockState blockState) {
     super(BlockEntityTypesRegistry.AUDIO_CONTROLLER.get(), pos, blockState);
@@ -30,6 +31,15 @@ public class AudioControllerBlockEntity extends BlockEntity {
 
   public List<AudioLink> getLinks() {
     return Collections.unmodifiableList(links);
+  }
+
+  public int getVolume() {
+    return volume;
+  }
+
+  public void setVolume(int volume) {
+    this.volume = Math.clamp(volume, 0, 15);
+    syncLinksChange();
   }
 
   public boolean addLink(AudioLink link) {
@@ -57,6 +67,7 @@ public class AudioControllerBlockEntity extends BlockEntity {
   @Override
   protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
     super.saveAdditional(tag, registries);
+    tag.putInt("volume", volume);
     LINKS_CODEC.encodeStart(NbtOps.INSTANCE, links)
         .resultOrPartial(err -> {
         })
@@ -66,6 +77,7 @@ public class AudioControllerBlockEntity extends BlockEntity {
   @Override
   protected void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
     super.loadAdditional(tag, registries);
+    volume = tag.contains("volume") ? Math.clamp(tag.getInt("volume"), 0, 15) : 0;
     if (tag.contains(LINKS_KEY)) {
       Tag linksTag = tag.get(LINKS_KEY);
       LINKS_CODEC.parse(NbtOps.INSTANCE, linksTag)

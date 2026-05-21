@@ -1,10 +1,14 @@
 package dev.piscopancer.createfearsound.datagen;
 
 import com.simibubi.create.AllItems;
+import com.simibubi.create.AllRecipeTypes;
 import com.simibubi.create.api.data.recipe.MixingRecipeGen;
 import com.simibubi.create.api.data.recipe.PressingRecipeGen;
+import com.simibubi.create.api.data.recipe.StandardProcessingRecipeGen;
+import com.simibubi.create.content.processing.recipe.StandardProcessingRecipe;
+import com.simibubi.create.foundation.recipe.IRecipeTypeInfo;
 import dev.piscopancer.createfearsound.CFS;
-import dev.piscopancer.createfearsound.common.registries.CreateSerializersRegistry;
+import dev.piscopancer.createfearsound.common.recipes.CassetteMixingRecipe;
 import dev.piscopancer.createfearsound.common.registries.ItemsRegistry;
 import java.util.concurrent.CompletableFuture;
 import net.minecraft.core.HolderLookup.Provider;
@@ -13,7 +17,7 @@ import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
-import net.minecraft.data.recipes.ShapelessRecipeBuilder;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 
@@ -32,8 +36,6 @@ final class CFSRecipeProvider extends RecipeProvider {
         .define('R', Items.REDSTONE)
         .unlockedBy("has_cardboard", has(AllItems.CARDBOARD.get()))
         .save(output);
-    // ShapelessRecipeBuilder.shapeless(RecipeCategory.REDSTONE,
-    // ItemsRegistry.CASSETTE.get(), 1);
   }
 }
 
@@ -51,13 +53,27 @@ final class CFSMixingRecipeProvider extends MixingRecipeGen {
   public CFSMixingRecipeProvider(PackOutput output, CompletableFuture<Provider> registries) {
     super(output, registries, CFS.MODID);
   }
+}
 
-  GeneratedRecipe
+final class CassetteMixingRecipeGen extends StandardProcessingRecipeGen<CassetteMixingRecipe> {
+  CassetteMixingRecipeGen(PackOutput output, CompletableFuture<Provider> registries) {
+    super(output, registries, CFS.MODID);
+  }
 
-  mixtape = create(() -> Items.PAPER, b -> b
+  @Override
+  protected IRecipeTypeInfo getRecipeType() {
+    return AllRecipeTypes.MIXING;
+  }
+
+  @Override
+  protected StandardProcessingRecipe.Builder<CassetteMixingRecipe> getBuilder(ResourceLocation id) {
+    return new StandardProcessingRecipe.Builder<>(CassetteMixingRecipe::new, id);
+  }
+
+  GeneratedRecipe mixtape = create("mixtape", b -> b
       .withItemIngredients(
-          Ingredient.of(Items.PAPER),
+          Ingredient.of(ItemsRegistry.TAPE_PIECE.get()),
           Ingredient.of(ItemsRegistry.CASSETTE.get()))
       .output(ItemsRegistry.CASSETTE.get())
-      .duration(100));
+      .duration(200));
 }

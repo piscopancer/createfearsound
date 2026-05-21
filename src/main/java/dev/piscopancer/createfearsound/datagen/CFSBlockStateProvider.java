@@ -18,9 +18,10 @@ class CFSBlockStateProvider extends BlockStateProvider {
   @Override
   protected void registerStatesAndModels() {
     vanillaCube(BlocksRegistry.AUDIO_CONTROLLER, "chiseled_stone_bricks");
-    vanillaCube(BlocksRegistry.AUDIO_VOLUME, "note_block");
+    vanillaCube(BlocksRegistry.AUDIO_VOLUME, "polished_andesite");
     vanillaCube(BlocksRegistry.AUDIO_PLAY, "emerald_block");
     vanillaCube(BlocksRegistry.AUDIO_PAUSE, "gold_block");
+    vanillaCube(BlocksRegistry.AUDIO_SPEAKER, "note_block");
   }
 
   private void vanillaCube(DeferredBlock<? extends Block> deferred, String vanillaTexture) {
@@ -29,4 +30,5 @@ class CFSBlockStateProvider extends BlockStateProvider {
     ModelFile model = models().cubeAll(name, texture);
     simpleBlock(deferred.get(), model);
   }
+
 }

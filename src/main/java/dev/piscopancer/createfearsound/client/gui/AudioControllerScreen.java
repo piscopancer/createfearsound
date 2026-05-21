@@ -2,6 +2,7 @@ package dev.piscopancer.createfearsound.client.gui;
 
 import dev.piscopancer.createfearsound.common.blocks.AudioPauseBlock;
 import dev.piscopancer.createfearsound.common.blocks.AudioPlayBlock;
+import dev.piscopancer.createfearsound.common.blocks.AudioSpeakerBlock;
 import dev.piscopancer.createfearsound.common.blocks.AudioVolumeBlock;
 import dev.piscopancer.createfearsound.common.data.AudioLink;
 import dev.piscopancer.createfearsound.common.registries.ItemsRegistry;
@@ -103,6 +104,7 @@ public class AudioControllerScreen extends AbstractContainerScreen<AudioControll
       case Volume -> new ItemStack(ItemsRegistry.AUDIO_VOLUME.get());
       case Play -> new ItemStack(ItemsRegistry.AUDIO_PLAY.get());
       case Pause -> new ItemStack(ItemsRegistry.AUDIO_PAUSE.get());
+      case Speaker -> new ItemStack(ItemsRegistry.AUDIO_SPEAKER.get());
     };
   }
 
@@ -113,6 +115,7 @@ public class AudioControllerScreen extends AbstractContainerScreen<AudioControll
       case Volume -> block instanceof AudioVolumeBlock;
       case Play -> block instanceof AudioPlayBlock;
       case Pause -> block instanceof AudioPauseBlock;
+      case Speaker -> block instanceof AudioSpeakerBlock;
     };
   }
 }

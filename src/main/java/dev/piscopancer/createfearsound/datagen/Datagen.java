@@ -30,8 +30,8 @@ public class Datagen {
 
     if (event.includeServer()) {
       generator.addProvider(true, new CFSPressingRecipeProvider(output, event.getLookupProvider()));
-      generator.addProvider(true, new CFSMixingRecipeProvider(output,
-          event.getLookupProvider()));
+      generator.addProvider(true, new CassetteMixingRecipeGen(output, event.getLookupProvider()));
+      generator.addProvider(true, new CFSRecipeProvider(output, event.getLookupProvider()));
     }
   }
 }

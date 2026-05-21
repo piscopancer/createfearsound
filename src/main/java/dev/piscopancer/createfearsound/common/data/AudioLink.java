@@ -11,7 +11,8 @@ public record AudioLink(BlockPos pos, LinkType type) {
   public enum LinkType {
     Volume,
     Play,
-    Pause;
+    Pause,
+    Speaker;
 
     public static final Codec<LinkType> CODEC = Codec.STRING.xmap(s -> {
       try {

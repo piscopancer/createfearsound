@@ -24,6 +24,7 @@ final class CFSLangProvider extends LanguageProvider {
         add(BlocksRegistry.AUDIO_VOLUME.get(), "Audio Volume");
         add(BlocksRegistry.AUDIO_PLAY.get(), "Audio Play");
         add(BlocksRegistry.AUDIO_PAUSE.get(), "Audio Pause");
+        add(BlocksRegistry.AUDIO_SPEAKER.get(), "Audio Speaker");
         add("createfearsound.audio_controller.no_links", "No peripherals linked");
         add("createfearsound.audio_controller.links_header", "Linked peripherals (%s):");
         add("createfearsound.audio_controller.captured", "Audio Controller at %s, %s, %s selected");
@@ -37,6 +38,7 @@ final class CFSLangProvider extends LanguageProvider {
         add("createfearsound.gui.goggles.audio_volume.volume", "Volume:");
         add("createfearsound.gui.goggles.audio_play", "Audio Play");
         add("createfearsound.gui.goggles.audio_pause", "Audio Pause");
+        add("createfearsound.gui.goggles.audio_speaker", "Audio Speaker");
         add("createfearsound.gui.goggles.audio_peripheral.connected", "Connected to controller");
         add("createfearsound.gui.goggles.audio_peripheral.disconnected", "Not connected");
       }
@@ -47,6 +49,7 @@ final class CFSLangProvider extends LanguageProvider {
         add(BlocksRegistry.AUDIO_VOLUME.get(), "Блок громкости");
         add(BlocksRegistry.AUDIO_PLAY.get(), "Блок воспроизведения");
         add(BlocksRegistry.AUDIO_PAUSE.get(), "Блок паузы");
+        add(BlocksRegistry.AUDIO_SPEAKER.get(), "Динамик");
         add("createfearsound.audio_controller.no_links", "Периферии нет");
         add("createfearsound.audio_controller.links_header", "Привязанная периферия (%s):");
         add("createfearsound.audio_controller.captured", "Аудио-контроллер %s, %s, %s выбран");
@@ -60,6 +63,7 @@ final class CFSLangProvider extends LanguageProvider {
         add("createfearsound.gui.goggles.audio_volume.volume", "Громкость:");
         add("createfearsound.gui.goggles.audio_play", "Блок воспроизведения");
         add("createfearsound.gui.goggles.audio_pause", "Блок паузы");
+        add("createfearsound.gui.goggles.audio_speaker", "Динамик");
         add("createfearsound.gui.goggles.audio_peripheral.connected", "Подключён к контроллеру");
         add("createfearsound.gui.goggles.audio_peripheral.disconnected", "Не подключён");
       }

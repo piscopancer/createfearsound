@@ -20,7 +20,8 @@ public final class CreativeModTabsRegistry {
           ItemsRegistry.AUDIO_CONTROLLER,
           ItemsRegistry.AUDIO_VOLUME,
           ItemsRegistry.AUDIO_PLAY,
-          ItemsRegistry.AUDIO_PAUSE));
+          ItemsRegistry.AUDIO_PAUSE,
+          ItemsRegistry.AUDIO_SPEAKER));
 
   static final DeferredRegister<CreativeModeTab> REGISTRY = DeferredRegister
       .create(Registries.CREATIVE_MODE_TAB, CFS.MODID);
