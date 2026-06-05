@@ -43,7 +43,9 @@ public class CFSCommands {
                 .then(Commands.literal("play")
                     .then(Commands.argument("id", StringArgumentType.string())
                         .suggests(CFSCommands::suggestAudioIds)
-                        .executes(ctx -> play(ctx, StringArgumentType.getString(ctx, "id")))))
+                        .executes(ctx -> play(ctx, StringArgumentType.getString(ctx, "id"), false))
+                        .then(Commands.literal("--block")
+                            .executes(ctx -> play(ctx, StringArgumentType.getString(ctx, "id"), true)))))
                 .then(Commands.literal("stop")
                     .executes(CFSCommands::stop))
                 .then(Commands.literal("delete")
@@ -95,7 +97,7 @@ public class CFSCommands {
 
   private static final int CHUNK_SIZE = 32768;
 
-  private static int play(CommandContext<CommandSourceStack> ctx, String id) {
+  private static int play(CommandContext<CommandSourceStack> ctx, String id, boolean block) {
     CommandSourceStack src = ctx.getSource();
     ServerPlayer player = src.getPlayer();
     if (player == null) {
@@ -119,14 +121,14 @@ public class CFSCommands {
               src.sendFailure(Component.literal("Download failed: " + err.getMessage()).withStyle(ChatFormatting.RED));
               return;
             }
-            sendAudio(src, player, redownloaded);
+            sendAudio(src, player, redownloaded, !block);
           }));
       return 1;
     }
-    return sendAudio(src, player, entry);
+    return sendAudio(src, player, entry, !block);
   }
 
-  private static int sendAudio(CommandSourceStack src, ServerPlayer player, AudioStorage.AudioEntry entry) {
+  private static int sendAudio(CommandSourceStack src, ServerPlayer player, AudioStorage.AudioEntry entry, boolean followsPlayer) {
     byte[] data;
     try {
       data = Files.readAllBytes(entry.audioFile());
@@ -135,7 +137,8 @@ public class CFSCommands {
       return 0;
     }
     int totalChunks = (int) Math.ceil((double) data.length / CHUNK_SIZE);
-    PacketDistributor.sendToPlayer(player, new AudioPlayStartPayload(entry.id(), entry.name(), totalChunks));
+    var pos = src.getPosition();
+    PacketDistributor.sendToPlayer(player, new AudioPlayStartPayload(entry.id(), entry.name(), totalChunks, followsPlayer, pos.x, pos.y, pos.z));
     for (int i = 0; i < totalChunks; i++) {
       int from = i * CHUNK_SIZE;
       byte[] chunk = Arrays.copyOfRange(data, from, Math.min(from + CHUNK_SIZE, data.length));

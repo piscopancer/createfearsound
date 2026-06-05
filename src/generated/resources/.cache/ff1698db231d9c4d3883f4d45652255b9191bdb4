@@ -1,7 +1,8 @@
-// 1.21.1	2026-05-19T15:54:52.0828326	Item Models: createfearsound
+// 1.21.1	2026-05-21T16:50:57.0902664	Item Models: createfearsound
 ffddaa502b7e3ee4eedbd6deb86a91ccde1e52c7 assets/createfearsound/models/item/audio_controller.json
 6588f5e2d70284d00b47732c6f86f4b2a7979eab assets/createfearsound/models/item/audio_pause.json
 705fa3ae46aabbba60079c7bed395bec412b6807 assets/createfearsound/models/item/audio_play.json
+8a52b3e667e47e1ffb46ce87eab47277b4b41f73 assets/createfearsound/models/item/audio_speaker.json
 6a972a21e927c8858ab6340ad6e2c3eb1bf6c0ff assets/createfearsound/models/item/audio_volume.json
 eba0f3fa0b216fd1812f0c2658d794b369443e8f assets/createfearsound/models/item/cassette.json
 a01f9a055e87b13786ebf952e4e1446e999a3b54 assets/createfearsound/models/item/cassette_green.json

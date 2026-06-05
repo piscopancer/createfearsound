@@ -1,6 +1,7 @@
 package dev.piscopancer.createfearsound.client.audio;
 
 import dev.piscopancer.createfearsound.Util;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.sounds.AbstractTickableSoundInstance;
 import net.minecraft.client.resources.sounds.Sound;
 import net.minecraft.client.resources.sounds.SoundInstance;
@@ -18,19 +19,30 @@ public class CfsSoundInstance extends AbstractTickableSoundInstance {
   private static final Sound DUMMY_SOUND = new Sound(
       Util.modResLoc("custom_audio"),
       ConstantFloat.of(1f), ConstantFloat.of(1f),
-      1, Sound.Type.FILE, true, false, 0);
+      1, Sound.Type.FILE, true, false, 16);
+
+  // SoundEngine skips play() when volume == 0; start with a non-zero value so the channel gets created
+  private static final float MIN_INITIAL_VOLUME = 0.0001f;
+
+  private static final float REFERENCE_DISTANCE = 4.0f;
+  private static final float AIR_ABSORPTION_HALF_DISTANCE = 32.0f;
+  private static final float AIR_ABSORPTION_FACTOR = 0.9f;
 
   private final AudioStream stream;
+  private final boolean followsPlayer;
+  private final Vec3 sourcePos;
   private boolean stopped = false;
 
-  public CfsSoundInstance(AudioStream stream, Vec3 pos) {
+  public CfsSoundInstance(AudioStream stream, Vec3 pos, boolean followsPlayer) {
     super(SoundEvent.createVariableRangeEvent(Util.modResLoc("custom_audio")), SoundSource.RECORDS, SoundInstance.createUnseededRandom());
     this.stream = stream;
+    this.followsPlayer = followsPlayer;
+    this.sourcePos = pos;
     this.x = pos.x;
     this.y = pos.y;
     this.z = pos.z;
-    this.volume = 1.0f;
-    this.attenuation = Attenuation.LINEAR;
+    this.volume = MIN_INITIAL_VOLUME;
+    this.attenuation = Attenuation.NONE;
   }
 
   @Override
@@ -49,7 +61,26 @@ public class CfsSoundInstance extends AbstractTickableSoundInstance {
 
   @Override
   public void tick() {
-    if (stopped) stop();
+    if (stopped) {
+      stop();
+      return;
+    }
+    var player = Minecraft.getInstance().player;
+    if (player == null) {
+      stop();
+      return;
+    }
+    if (followsPlayer) {
+      this.x = player.getX();
+      this.y = player.getY();
+      this.z = player.getZ();
+      this.volume = 1.0f;
+    } else {
+      double dist = player.getEyePosition().distanceTo(sourcePos);
+      float geometric = (float) Math.min(1.0, REFERENCE_DISTANCE / Math.max(dist, 0.1));
+      float airAbsorption = (float) Math.pow(AIR_ABSORPTION_FACTOR, dist / AIR_ABSORPTION_HALF_DISTANCE);
+      this.volume = geometric * airAbsorption;
+    }
   }
 
   public void requestStop() {

@@ -75,7 +75,7 @@ public class CFSClient {
             () -> CFSClientEvents.pendingControllerPos = payload.pos().orElse(null)));
     r.playToClient(AudioPlayStartPayload.TYPE, AudioPlayStartPayload.STREAM_CODEC,
         (payload, context) -> context.enqueueWork(
-            () -> ClientAudioReceiver.onPlayStart(payload.trackId(), payload.name(), payload.totalChunks())));
+            () -> ClientAudioReceiver.onPlayStart(payload.trackId(), payload.name(), payload.totalChunks(), payload.followsPlayer(), payload.x(), payload.y(), payload.z())));
     r.playToClient(AudioChunkPayload.TYPE, AudioChunkPayload.STREAM_CODEC,
         (payload, context) -> context.enqueueWork(
             () -> ClientAudioReceiver.onChunk(payload.trackId(), payload.chunkIndex(), payload.data())));
